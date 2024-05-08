@@ -1,0 +1,21 @@
+﻿services:
+  webapp:
+    image: webapp
+    build:
+      context: .
+      dockerfile: WebApp/Dockerfile
+  mssql:
+    container_name: sql-server
+    build: ./compose/mssql
+    restart: always
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Root1234"
+    # ports:
+    #   - "1433:1433"
+    volumes:
+      - bislerium-mssql-server:/var/opt/mssql
+
+
+volumes:
+  bislerium-mssql-server:

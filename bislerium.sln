@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{BFECCA68-558F-4CE4-9C92-C8B4DE9CEDF5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5685A062-F120-47D2-B026-3535D2E48AA5}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBusiness", "CoreBusiness\CoreBusiness.csproj", "{7C9BC332-5747-45E2-930C-6C8EC7270749}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases", "UseCases\UseCases.csproj", "{47477F8F-09A7-4637-ADFE-EF1E0A7CDB4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins.DataStore.InMemory", "Plugins\Plugins.DataStore.InMemory\Plugins.DataStore.InMemory.csproj", "{4EEFEFBB-4BF8-42E1-91FB-0F99C6D12725}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins.DataStore.SQL", "Plugins\Plugins.DataStore.SQL\Plugins.DataStore.SQL.csproj", "{34807F21-01CC-4ACD-8909-49FBDB2F05AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BFECCA68-558F-4CE4-9C92-C8B4DE9CEDF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFECCA68-558F-4CE4-9C92-C8B4DE9CEDF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFECCA68-558F-4CE4-9C92-C8B4DE9CEDF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFECCA68-558F-4CE4-9C92-C8B4DE9CEDF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C9BC332-5747-45E2-930C-6C8EC7270749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C9BC332-5747-45E2-930C-6C8EC7270749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C9BC332-5747-45E2-930C-6C8EC7270749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C9BC332-5747-45E2-930C-6C8EC7270749}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47477F8F-09A7-4637-ADFE-EF1E0A7CDB4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47477F8F-09A7-4637-ADFE-EF1E0A7CDB4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47477F8F-09A7-4637-ADFE-EF1E0A7CDB4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47477F8F-09A7-4637-ADFE-EF1E0A7CDB4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EEFEFBB-4BF8-42E1-91FB-0F99C6D12725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EEFEFBB-4BF8-42E1-91FB-0F99C6D12725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EEFEFBB-4BF8-42E1-91FB-0F99C6D12725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EEFEFBB-4BF8-42E1-91FB-0F99C6D12725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34807F21-01CC-4ACD-8909-49FBDB2F05AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34807F21-01CC-4ACD-8909-49FBDB2F05AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34807F21-01CC-4ACD-8909-49FBDB2F05AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34807F21-01CC-4ACD-8909-49FBDB2F05AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
