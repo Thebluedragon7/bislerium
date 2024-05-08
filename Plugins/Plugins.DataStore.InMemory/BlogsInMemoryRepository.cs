@@ -45,7 +45,7 @@ public class BlogsInMemoryRepository : IBlogRepository
         throw new NotImplementedException();
     }
 
-    public Blog GetBlogById(Guid blogId)
+    public Blog? GetBlogById(Guid blogId)
     {
         throw new NotImplementedException();
     }
