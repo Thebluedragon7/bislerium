@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Plugins.DataStore.InMemory;
 using Plugins.DataStore.SQL;
 using UseCases.BlogsUseCases;
 using UseCases.DataStorePluginInterfaces;
@@ -14,7 +13,7 @@ builder.Services.AddDbContext<BisleriumContext>(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton<IBlogRepository, BlogsInMemoryRepository>();
+builder.Services.AddSingleton<IBlogRepository, BlogSqlRepository>();
 builder.Services.AddTransient<IViewBlogsUseCase, ViewBlogsUseCase>();
 
 var app = builder.Build();
