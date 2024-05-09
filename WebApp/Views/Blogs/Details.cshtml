@@ -14,10 +14,10 @@
                 @if (User?.Identity != null && User.Identity.IsAuthenticated && UserManager.GetUserId(User) == Model.AuthorId)
                 {
                     <div>
-                        <a class="btn btn-warning" role="button"  asp-controller="Blogs" asp-action="Edit" asp-route-id="@Model.Id">
+                        <a class="btn btn-warning" role="button" asp-controller="Blogs" asp-action="Edit" asp-route-id="@Model.Id">
                             Edit
                         </a>
-                        <a class="btn btn-danger ms-3" role="button"  asp-controller="Blogs" asp-action="Delete" asp-route-id="@Model.Id">
+                        <a class="btn btn-danger ms-3" role="button" asp-controller="Blogs" asp-action="Delete" asp-route-id="@Model.Id">
                             Delete
                         </a>
                     </div>
@@ -48,17 +48,14 @@
 
         <hr/>
         <div class="d-xl-flex align-items-xl-center">
-            <a class="btn btn-primary" role="button">
-                @* Blog Reaction count with reaction type Activity = Upvote; if null then 0 *@
-                <i class="far fa-thumbs-up"></i> @(Model.BlogReactions?.Count(r => r.ReactionType.Activity == "Upvote") ?? 0)
+            <a class="btn btn-success" role="button">
+                Upvote (@(Model.BlogReactions?.Count(r => r.ReactionType.Activity == "Upvote") ?? 0))
             </a>
-            <a class="btn btn-primary ms-3" role="button">
-                @* Blog Reaction count with reaction type Activity = Downvote; if null then 0 *@
-                <i class="far fa-thumbs-down"></i> @(Model.BlogReactions?.Count(r => r.ReactionType.Activity == "Downvote") ?? 0)
+            <a class="btn btn-warning ms-3" role="button">
+                Downvote (@(Model.BlogReactions?.Count(r => r.ReactionType.Activity == "Downvote") ?? 0))
             </a>
-            <a class="btn btn-primary ms-3" role="button">
-                @* Blog Comment count; if null then 0 *@
-                <i class="far fa-comment"></i> @(Model.Comments?.Count ?? 0)
+            <a class="btn btn-primary ms-3" role="button" asp-controller="Comments" asp-action="Create" asp-route-blogId="@Model.Id">
+                Comment (@(Model.Comments?.Count ?? 0))
             </a>
         </div>
     </div>
@@ -73,10 +70,23 @@
                     <li class="list-group-item">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <span>@comment.Text</span><em> - Comment Author</em>
+                                <span>@comment.Text</span><em> - @comment.User.FullName</em>
                             </div>
                             <div class="d-xl-flex align-items-xl-center">
-                                <a class="btn btn-primary" role="button"><i class="far fa-thumbs-up"></i> 0</a><a class="btn btn-primary ms-3" role="button"><i class="far fa-thumbs-down"></i> 0</a>
+                                <a class="btn btn-success" role="button">
+                                    Upvote (0)
+                                </a>
+                                <a class="btn btn-warning ms-3" role="button">
+                                    Downvote (0)
+                                </a>
+
+                                @if (User?.Identity != null && User.Identity.IsAuthenticated && (UserManager.GetUserId(User) == comment.UserId || UserManager.GetUserId(User) == Model.AuthorId))
+                                {
+                                    <a class="btn btn-danger ms-3" role="button" asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id">
+                                        Delete
+                                    </a>
+                                }
+
                             </div>
                         </div>
                     </li>

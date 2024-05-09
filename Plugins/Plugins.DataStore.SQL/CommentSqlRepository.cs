@@ -1,4 +1,5 @@
 using CoreBusiness;
+using Microsoft.EntityFrameworkCore;
 using UseCases.DataStorePluginInterfaces;
 
 namespace Plugins.DataStore.SQL;
@@ -16,6 +17,11 @@ public class CommentSqlRepository : ICommentRepository
     {
         _db.Comments.Add(comment);
         _db.SaveChanges();
+    }
+
+    public IEnumerable<Comment> GetCommentsByBlogId(Guid blogId)
+    {
+        return _db.Comments.Where(c => c.BlogId == blogId).Include(c => c.User).ToList();
     }
 
     public void DeleteComment(Guid commentId)

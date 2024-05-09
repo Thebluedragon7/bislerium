@@ -1,0 +1,13 @@
+@{
+    ViewBag.Title = "Delete Comment";
+}
+
+<div class="container">
+    <h1>Are you sure you want to delete the comment?</h1>
+    <div class="d-flex flex-row align-items-xl-center">
+        <button class="btn btn-secondary" role="button" onclick="window.history.back();">No</button>
+        <form method="post" asp-controller="Comments" asp-action="DeleteComment" asp-route-id="@ViewBag.CommentId">
+            <button class="btn btn-danger ms-3" type="submit">Yes</button>
+        </form>
+    </div>
+</div>

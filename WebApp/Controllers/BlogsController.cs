@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UseCases.BlogsUseCases;
+using UseCases.CommentsUseCases;
 using WebApp.Models;
 
 namespace WebApp.Controllers;
@@ -14,13 +15,15 @@ public class BlogsController : Controller
     private readonly IViewBlogsUseCase _viewBlogsUseCase;
     private readonly IDeleteBlogUseCase _deleteBlogUseCase;
     private readonly IEditBlogUseCase _editBlogUseCase;
+    private readonly IGetCommentsByBlogIdUseCase _getCommentsByBlogIdUseCase;
 
     public BlogsController(
         UserManager<User> userManager,
         IAddBlogUseCase addBlogUseCase,
         IViewBlogsUseCase viewBlogsUseCase,
         IDeleteBlogUseCase deleteBlogUseCase,
-        IEditBlogUseCase editBlogUseCase
+        IEditBlogUseCase editBlogUseCase,
+        IGetCommentsByBlogIdUseCase getCommentsByBlogIdUseCase
     )
     {
         _userManager = userManager;
@@ -28,6 +31,7 @@ public class BlogsController : Controller
         _viewBlogsUseCase = viewBlogsUseCase;
         _deleteBlogUseCase = deleteBlogUseCase;
         _editBlogUseCase = editBlogUseCase;
+        _getCommentsByBlogIdUseCase = getCommentsByBlogIdUseCase;
     }
 
     public IActionResult Index()
@@ -44,18 +48,18 @@ public class BlogsController : Controller
     {
         return View();
     }
-    
+
     [HttpPost]
     [Authorize(Roles = "Blogger")]
     public IActionResult Create(Blog blog)
     {
         blog.Id = Guid.NewGuid();
         blog.AuthorId = _userManager.GetUserId(User)!;
-        
+
         _addBlogUseCase.Execute(blog);
         return RedirectToAction("Index");
     }
-    
+
     public IActionResult Details(Guid id)
     {
         var blog = _viewBlogsUseCase.Execute().FirstOrDefault(b => b.Id == id);
@@ -63,9 +67,11 @@ public class BlogsController : Controller
         {
             return NotFound();
         }
+
+        blog.Comments = _getCommentsByBlogIdUseCase.Execute(id).ToList();
         return View(blog);
     }
-    
+
     [Authorize(Roles = "Blogger")]
     public IActionResult Edit(Guid id)
     {
@@ -74,9 +80,10 @@ public class BlogsController : Controller
         {
             return NotFound();
         }
+
         return View(blog);
     }
-    
+
     [HttpPost]
     [Authorize(Roles = "Blogger")]
     public IActionResult Edit(Guid id, Blog blog)
@@ -84,7 +91,7 @@ public class BlogsController : Controller
         _editBlogUseCase.Execute(id, blog);
         return RedirectToAction("Index");
     }
-    
+
     [Authorize(Roles = "Blogger")]
     public IActionResult Delete(Guid id)
     {
@@ -93,9 +100,10 @@ public class BlogsController : Controller
         {
             return NotFound();
         }
+
         return View(blog);
     }
-    
+
     [HttpPost]
     [Authorize(Roles = "Blogger")]
     public IActionResult DeleteBlog(Guid id)

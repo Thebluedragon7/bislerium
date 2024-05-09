@@ -7,7 +7,7 @@
 <div class="container">
     <h1>Are you sure you want to delete blog &quot;@Model.Title&quot;?</h1>
     <div class="d-flex flex-row align-items-xl-center">
-        <a class="btn btn-secondary" role="button" asp-controller="Blogs" asp-action="Details">No</a>
+        <a class="btn btn-secondary" role="button" asp-controller="Blogs" asp-action="Details" asp-route-id="@Model.Id">No</a>
         <form method="post" asp-controller="Blogs" asp-action="DeleteBlog" asp-route-id="@Model.Id">
             <button class="btn btn-danger ms-3" type="submit">Yes</button>
         </form>

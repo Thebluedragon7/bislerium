@@ -55,6 +55,7 @@ builder.Services.AddTransient<IDeleteBlogReactionUseCase, DeleteBlogReactionUseC
 
 // Use Cases - Comments
 builder.Services.AddTransient<IAddCommentUseCase, AddCommentUseCase>();
+builder.Services.AddTransient<IGetCommentsByBlogIdUseCase, GetCommentsByBlogIdUseCase>();
 builder.Services.AddTransient<IDeleteCommentUseCase, DeleteCommentUseCase>();
 
 // Use Cases - Comments Reactions
