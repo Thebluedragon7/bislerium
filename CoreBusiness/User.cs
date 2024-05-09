@@ -1,27 +1,15 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace CoreBusiness;
 
-public class User
+public class User : IdentityUser
 {
-    [Key]
-    public Guid Id { get; set; }
-    [Required]
-    [Display(Name = "User Type")]
-    public Guid UserTypeId { get; set; }
     [Required]
     public string FullName { get; set; } = String.Empty;
-    [Required]
-    public string Email { get; set; } = String.Empty;
-    [Required]
-    public string Password { get; set; } = String.Empty;
-    [Required]
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    [Required]
-    public DateTime UpdatedAt { get; set; } = DateTime.Now;
     
     // Navigation properties
-    public UserType UserType { get; set; }
+    // public UserType UserType { get; set; }
     public List<CommentAction>? CommentActions { get; set; }
     public List<Comment>? Comments { get; set; }
     public List<Blog>? Blogs { get; set; }

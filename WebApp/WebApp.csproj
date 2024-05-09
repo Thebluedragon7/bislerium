@@ -15,12 +15,13 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CoreBusiness\CoreBusiness.csproj" />
-      <ProjectReference Include="..\Plugins\Plugins.DataStore.InMemory\Plugins.DataStore.InMemory.csproj" />
       <ProjectReference Include="..\Plugins\Plugins.DataStore.SQL\Plugins.DataStore.SQL.csproj" />
       <ProjectReference Include="..\UseCases\UseCases.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.4" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
         <PrivateAssets>all</PrivateAssets>
@@ -31,6 +32,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
     </ItemGroup>
 
 </Project>

@@ -4,8 +4,12 @@ namespace CoreBusiness;
 
 public class CommentReaction
 {
+    [Key]
+    public Guid Id { get; set; }
+    [Required]
     public Guid CommentId { get; set; }
-    public Guid UserId { get; set; }
+    [Required]
+    public String UserId { get; set; } = string.Empty;
     [Required]
     [Display(Name = "Reaction Type")]
     public Guid ReactionTypeId { get; set; }

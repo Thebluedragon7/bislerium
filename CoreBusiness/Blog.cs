@@ -18,7 +18,7 @@ public class Blog
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
     [Required]
     [Display(Name = "Author")]
-    public Guid AuthorId { get; set; } = Guid.Empty;
+    public String AuthorId { get; set; } = String.Empty;
     
     // Navigation properties
     public User Author { get; set; }

@@ -2,7 +2,7 @@ using UseCases.DataStorePluginInterfaces;
 
 namespace UseCases.BlogsUseCases;
 
-public class DeleteBlogUseCase
+public class DeleteBlogUseCase : IDeleteBlogUseCase
 {
     private readonly IBlogRepository blogRepository;
     

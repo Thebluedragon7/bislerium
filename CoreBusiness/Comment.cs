@@ -11,7 +11,7 @@ public class Comment
     public Guid BlogId { get; set; }
     [Required]
     [Display(Name = "User")]
-    public Guid UserId { get; set; }
+    public String UserId { get; set; } = string.Empty;
     [Required]
     public string Text { get; set; } = string.Empty;
     [Required]

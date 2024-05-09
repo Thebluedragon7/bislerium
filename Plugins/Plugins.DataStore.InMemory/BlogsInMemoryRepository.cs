@@ -12,7 +12,7 @@ public class BlogsInMemoryRepository : IBlogRepository
             Id = Guid.NewGuid(),
             Title = "Blog 1",
             Body = "Content 1",
-            AuthorId = Guid.NewGuid(),
+            AuthorId = Guid.NewGuid().ToString(),
             UpdatedAt = DateTime.Now,
             CreatedAt = DateTime.Now,
         },
@@ -21,7 +21,7 @@ public class BlogsInMemoryRepository : IBlogRepository
             Id = Guid.NewGuid(),
             Title = "Blog 2",
             Body = "Content 2",
-            AuthorId = Guid.NewGuid(),
+            AuthorId = Guid.NewGuid().ToString(),
             UpdatedAt = DateTime.Now,
             CreatedAt = DateTime.Now
         },
@@ -30,7 +30,7 @@ public class BlogsInMemoryRepository : IBlogRepository
             Id = Guid.NewGuid(),
             Title = "Blog 3",
             Body = "Content 3",
-            AuthorId = Guid.NewGuid(),
+            AuthorId = Guid.NewGuid().ToString(),
             UpdatedAt = DateTime.Now,
             CreatedAt = DateTime.Now
         }

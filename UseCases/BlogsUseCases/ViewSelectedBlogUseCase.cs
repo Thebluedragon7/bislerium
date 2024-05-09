@@ -3,7 +3,7 @@ using UseCases.DataStorePluginInterfaces;
 
 namespace UseCases.BlogsUseCases;
 
-public class ViewSelectedBlogUseCase
+public class ViewSelectedBlogUseCase : IViewSelectedBlogUseCase
 {
     private readonly IBlogRepository blogRepository;
 

@@ -8,7 +8,7 @@ public class Notification
     public Guid Id { get; set; }
     [Required]
     [Display(Name = "User")]
-    public Guid UserId { get; set; }
+    public String UserId { get; set; } = String.Empty;
     [Required]
     public bool IsSeen { get; set; }
     [Required]

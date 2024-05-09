@@ -10,7 +10,7 @@ public class CommentAction
     public Guid CommentId { get; set; }
     [Required]
     [Display(Name = "User")]
-    public Guid ActionBy { get; set; }
+    public String ActionBy { get; set; } = string.Empty;
     [Required]
     public string Message { get; set; } = string.Empty;
     [Required]

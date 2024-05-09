@@ -1,15 +1,15 @@
 using CoreBusiness;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Plugins.DataStore.SQL;
 
-public class BisleriumContext : DbContext
+public class BisleriumContext : IdentityDbContext<User>
 {
-    public BisleriumContext(DbContextOptions options) : base(options)
+    public BisleriumContext(DbContextOptions<BisleriumContext> options) : base(options)
     {
-        
     }
-    
+
     public DbSet<Blog> Blogs { get; set; }
     public DbSet<BlogAction> BlogActions { get; set; }
     public DbSet<BlogImage> BlogImages { get; set; }
@@ -20,7 +20,7 @@ public class BisleriumContext : DbContext
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<ReactionType> ReactionTypes { get; set; }
     public DbSet<User> Users { get; set; }
-    public DbSet<UserType> UserTypes { get; set; }
+    // public DbSet<UserType> UserTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -29,22 +29,16 @@ public class BisleriumContext : DbContext
         /*
          * Composite Keys
          */
-        modelBuilder.Entity<BlogReaction>()
-            .HasKey(r => new { r.BlogId, r.UserId });
-        
-        modelBuilder.Entity<CommentReaction>()
-            .HasKey(r => new { r.CommentId, r.UserId });
-        
-        
+        // modelBuilder.Entity<BlogReaction>()
+        //     .HasKey(r => new { r.BlogId, r.UserId });
+
+        // modelBuilder.Entity<CommentReaction>()
+        //     .HasKey(r => new { r.CommentId, r.UserId });
+
+
         /*
          * Relationships
          */
-
-        // UserType -|------<- User
-        modelBuilder.Entity<UserType>()
-            .HasMany(t => t.Users)
-            .WithOne(u => u.UserType)
-            .HasForeignKey(u => u.UserTypeId);
 
         // User -|------<- Blog
         modelBuilder.Entity<User>()
@@ -108,7 +102,8 @@ public class BisleriumContext : DbContext
         modelBuilder.Entity<Blog>()
             .HasMany(b => b.Comments)
             .WithOne(c => c.Blog)
-            .HasForeignKey(c => c.BlogId);
+            .HasForeignKey(c => c.BlogId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // Comment -|------<- CommentAction
         modelBuilder.Entity<Comment>()
@@ -137,10 +132,16 @@ public class BisleriumContext : DbContext
         /*
          * Seeding
          */
-        modelBuilder.Entity<UserType>()
+        // modelBuilder.Entity<UserType>()
+        //     .HasData(
+        //         new UserType() { Id = Guid.NewGuid(), Name = "Admin" },
+        //         new UserType() { Id = Guid.NewGuid(), Name = "Blogger" }
+        //     );
+
+        modelBuilder.Entity<ReactionType>()
             .HasData(
-                new UserType() { Id = Guid.NewGuid(), Name = "Admin" },
-                new UserType() { Id = Guid.NewGuid(), Name = "Blogger" }
+                new ReactionType() { Id = Guid.NewGuid(), Activity = "Upvote", Weightage = 2 },
+                new ReactionType() { Id = Guid.NewGuid(), Activity = "Downvote", Weightage = -1 }
             );
     }
 }
