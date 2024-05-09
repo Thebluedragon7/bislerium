@@ -5,15 +5,15 @@ namespace UseCases.BlogsUseCases;
 
 public class AddBlogUseCase : IAddBlogUseCase
 {
-    private readonly IBlogRepository blogRepository;
+    private readonly IBlogRepository _blogRepository;
     
     public AddBlogUseCase(IBlogRepository blogRepository)
     {
-        this.blogRepository = blogRepository;
+        this._blogRepository = blogRepository;
     }
     
     public void Execute(Blog blog)
     {
-        blogRepository.AddBlog(blog);
+        _blogRepository.AddBlog(blog);
     }
 }
