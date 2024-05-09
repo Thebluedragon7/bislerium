@@ -1,5 +1,6 @@
 using CoreBusiness;
 using Microsoft.EntityFrameworkCore;
+using Plugins.DataStore.SQL.constants;
 using UseCases.DataStorePluginInterfaces;
 
 namespace Plugins.DataStore.SQL;
@@ -19,9 +20,36 @@ public class BlogSqlRepository : IBlogRepository
         _db.SaveChanges();
     }
 
-    public IEnumerable<Blog> GetBlogs()
+    public IEnumerable<Blog> GetBlogs(int pageNumber, int pageSize, String sortBy)
     {
-        return _db.Blogs.Include(b => b.Author).ToList();
+        // Calculate the number of blogs to skip
+        int skip = (pageNumber - 1) * pageSize;
+
+        // Query the database with sorting and pagination
+        IQueryable<Blog> query = _db.Blogs.Include(b => b.Author);
+
+        // Apply sorting
+        switch (sortBy.ToLower())
+        {
+            case "recency":
+                query = query.OrderByDescending(b => b.CreatedAt);
+                break;
+            case "popularity":
+                query = query.OrderByDescending(b =>
+                    b.BlogReactions.Count(br => br.ReactionTypeId == Guid.Parse(ReactionTypeMapper.UPVOTE)) * 2 +
+                    b.BlogReactions.Count(br => br.ReactionTypeId == Guid.Parse(ReactionTypeMapper.DOWNVOTE)) * -1 +
+                    b.Comments.Count);
+                break;
+            default:
+                query = query.OrderBy(b => Guid.NewGuid()); // Random sorting
+                break;
+        }
+
+        // Apply pagination
+        query = query.Skip(skip).Take(pageSize);
+
+        return query.ToList();
+        // return _db.Blogs.Include(b => b.Author).ToList();
     }
 
     public Blog? GetBlogById(Guid blogId)

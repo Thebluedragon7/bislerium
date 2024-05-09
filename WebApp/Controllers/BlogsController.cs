@@ -48,12 +48,18 @@ public class BlogsController : Controller
         _getBlogImagesUseCase = getBlogImagesUseCase;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int pageNumber = 1, int pageSize = 2, string sortBy = "recency")
     {
-        var blogs = _viewBlogsUseCase.Execute();
+        if (pageNumber < 1) pageNumber = 1;
+        if (pageSize < 1) pageSize = 1;
+
+        var blogs = _viewBlogsUseCase.Execute(pageNumber, pageSize, sortBy);
         return View(new BlogViewModel()
         {
-            Blogs = blogs.ToList()
+            Blogs = blogs.ToList(),
+            SortBy = sortBy,
+            PageNumber = pageNumber,
+            PageSize = pageSize
         });
     }
 
@@ -115,7 +121,7 @@ public class BlogsController : Controller
 
     public IActionResult Details(Guid id)
     {
-        var blog = _viewBlogsUseCase.Execute().FirstOrDefault(b => b.Id == id);
+        var blog = _viewSelectedBlogUseCase.Execute(id);
 
         if (blog == null)
         {
@@ -147,7 +153,7 @@ public class BlogsController : Controller
     public async Task<IActionResult> Edit(Guid id, Blog blog, IEnumerable<IFormFile> images)
     {
         _editBlogUseCase.Execute(id, blog);
-        
+
         var blogImages = new List<BlogImage>();
 
         foreach (var image in images)
@@ -182,16 +188,16 @@ public class BlogsController : Controller
 
             blogImages.Add(blogImage);
         }
-        
+
         _addBlogImagesUseCases.Execute(blog.Id, blogImages);
-        
+
         return RedirectToAction("Edit", "Blogs", new { id });
     }
 
     [Authorize(Roles = "Blogger")]
     public IActionResult Delete(Guid id)
     {
-        var blog = _viewBlogsUseCase.Execute().FirstOrDefault(b => b.Id == id);
+        var blog = _viewSelectedBlogUseCase.Execute(id);
         if (blog == null)
         {
             return NotFound();

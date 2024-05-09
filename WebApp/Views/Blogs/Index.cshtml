@@ -10,15 +10,55 @@
         <a class="btn btn-primary" role="button" asp-controller="Blogs" asp-action="Create">Add Blog</a>
     </div>
 
+    <div class="d-flex justify-content-between">
+        <div>
+            <form method="get" asp-controller="Blogs" asp-action="Index">
+                <input type="hidden" name="pageNumber" value="@Model.PageNumber"/>
+                <label for="sortBy">Sort by:</label>
+                <select id="sortBy" name="sortBy" asp-for="SortBy">
+                    <option value="recency">Recency</option>
+                    <option value="random">Random</option>
+                    <option value="popularity">Popularity</option>
+                </select>
+                <label for="pageSize" class="ms-3">Page Size:</label>
+                <select id="pageSize" name="pageSize" asp-for="PageSize">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <hr/>
+
     @foreach (Blog blog in Model.Blogs)
     {
         <a class="card mt-3 text-decoration-none" asp-controller="Blogs" asp-action="Details" asp-route-id="@blog.Id">
             <div class="card-body">
                 <h5 class="card-title text-black">@blog.Title</h5>
-                <h5 class="card-subtitle text-black">@blog.Subtitle</h5>
-                <p class="card-text text-black">by @blog.Author.FullName</p>
+                <h5 class="card-subtitle text-black-50">@blog.Subtitle</h5>
+                <p class="card-text text-black">by <em>@blog.Author.FullName</em></p>
             </div>
         </a>
     }
 
 </div>
+
+<hr/>
+<div class="d-flex flex-row justify-content-center">
+    <a class="btn btn-primary" asp-controller="Blogs" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber - 1)" asp-route-pageSize="@Model.PageSize" asp-route-sortBy="@Model.SortBy">Previous</a>
+    <a class="btn btn-primary ms-3" asp-controller="Blogs" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber + 1)" asp-route-pageSize="@Model.PageSize" asp-route-sortBy="@Model.SortBy">Next</a>
+</div>
+<hr/>
+
+<script>
+    $(document).ready(function(){
+        $('#sortBy').change(function(){
+            this.form.submit();
+        });
+        $('#pageSize').change(function(){
+            this.form.submit();
+        });
+    });
+</script>

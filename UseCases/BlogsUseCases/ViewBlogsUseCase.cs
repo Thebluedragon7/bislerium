@@ -12,8 +12,8 @@ public class ViewBlogsUseCase : IViewBlogsUseCase
         this.blogRepository = blogRepository;
     }
 
-    public IEnumerable<Blog> Execute()
+    public IEnumerable<Blog> Execute(int pageNumber, int pageSize, string sortBy)
     {
-        return this.blogRepository.GetBlogs();
+        return this.blogRepository.GetBlogs(pageNumber, pageSize, sortBy);
     }
 }
