@@ -13,7 +13,7 @@ builder.Services.AddDbContext<BisleriumContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BisleriumPrivate"));
 });
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<BisleriumContext>();
 
