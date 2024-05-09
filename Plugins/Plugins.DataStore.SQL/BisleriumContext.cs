@@ -1,6 +1,7 @@
 using CoreBusiness;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Plugins.DataStore.SQL.constants;
 
 namespace Plugins.DataStore.SQL;
 
@@ -132,16 +133,11 @@ public class BisleriumContext : IdentityDbContext<User>
         /*
          * Seeding
          */
-        // modelBuilder.Entity<UserType>()
-        //     .HasData(
-        //         new UserType() { Id = Guid.NewGuid(), Name = "Admin" },
-        //         new UserType() { Id = Guid.NewGuid(), Name = "Blogger" }
-        //     );
-
         modelBuilder.Entity<ReactionType>()
             .HasData(
-                new ReactionType() { Id = Guid.NewGuid(), Activity = "Upvote", Weightage = 2 },
-                new ReactionType() { Id = Guid.NewGuid(), Activity = "Downvote", Weightage = -1 }
+                new ReactionType() { Id = Guid.Parse(ReactionTypeMapper.UPVOTE), Activity = "Upvote", Weightage = 2 },
+                new ReactionType()
+                    { Id = Guid.Parse(ReactionTypeMapper.DOWNVOTE), Activity = "Downvote", Weightage = -1 }
             );
     }
 }

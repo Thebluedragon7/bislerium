@@ -2,6 +2,7 @@ using CoreBusiness;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using UseCases.BlogReactionsUseCases;
 using UseCases.BlogsUseCases;
 using UseCases.CommentsUseCases;
 using WebApp.Models;
@@ -16,6 +17,8 @@ public class BlogsController : Controller
     private readonly IDeleteBlogUseCase _deleteBlogUseCase;
     private readonly IEditBlogUseCase _editBlogUseCase;
     private readonly IGetCommentsByBlogIdUseCase _getCommentsByBlogIdUseCase;
+    private readonly IGetBlogReactionsByBlogIdUseCase _getBlogReactionsByBlogIdUseCase;
+
 
     public BlogsController(
         UserManager<User> userManager,
@@ -23,7 +26,8 @@ public class BlogsController : Controller
         IViewBlogsUseCase viewBlogsUseCase,
         IDeleteBlogUseCase deleteBlogUseCase,
         IEditBlogUseCase editBlogUseCase,
-        IGetCommentsByBlogIdUseCase getCommentsByBlogIdUseCase
+        IGetCommentsByBlogIdUseCase getCommentsByBlogIdUseCase,
+        IGetBlogReactionsByBlogIdUseCase getBlogReactionsByBlogIdUseCase
     )
     {
         _userManager = userManager;
@@ -32,6 +36,7 @@ public class BlogsController : Controller
         _deleteBlogUseCase = deleteBlogUseCase;
         _editBlogUseCase = editBlogUseCase;
         _getCommentsByBlogIdUseCase = getCommentsByBlogIdUseCase;
+        _getBlogReactionsByBlogIdUseCase = getBlogReactionsByBlogIdUseCase;
     }
 
     public IActionResult Index()
@@ -63,12 +68,14 @@ public class BlogsController : Controller
     public IActionResult Details(Guid id)
     {
         var blog = _viewBlogsUseCase.Execute().FirstOrDefault(b => b.Id == id);
+
         if (blog == null)
         {
             return NotFound();
         }
 
         blog.Comments = _getCommentsByBlogIdUseCase.Execute(id).ToList();
+        blog.BlogReactions = _getBlogReactionsByBlogIdUseCase.Execute(id).ToList();
         return View(blog);
     }
 

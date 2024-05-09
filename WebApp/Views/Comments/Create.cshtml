@@ -10,7 +10,7 @@
         <input type="hidden" asp-for="BlogId" value="@ViewBag.BlogId"/>
         <textarea class="form-control form-control-lg" asp-for="Text" required="required"></textarea>
         <div class="d-flex flex-row justify-content-xl-end mt-2">
-            <a class="btn btn-secondary" role="button">Cancel</a>
+            <button class="btn btn-secondary" role="button" onclick="window.history.back();">Cancel</button>
             <button class="btn btn-primary ms-3" type="submit">Submit</button>
         </div>
     </form>

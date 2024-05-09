@@ -18,6 +18,13 @@ public class BlogReactionSqlRepository : IBlogReactionRepository
         _db.SaveChanges();
     }
 
+    public IEnumerable<BlogReaction> GetBlogReactionsByBlogId(Guid blogId)
+    {
+        return _db.BlogReactions
+            .Where(br => br.BlogId == blogId)
+            .ToList();
+    }
+
     public void DeleteBlogReaction(Guid blogReactionId)
     {
         var blogReaction = _db.BlogReactions.Find(blogReactionId);

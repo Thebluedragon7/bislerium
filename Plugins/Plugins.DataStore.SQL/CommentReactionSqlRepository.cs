@@ -19,6 +19,13 @@ public class CommentReactionSqlRepository : ICommentReactionRepository
         _db.SaveChanges();
     }
 
+    public IEnumerable<CommentReaction> GetCommentReactionsByCommentId(Guid commentId)
+    {
+        return _db.CommentReactions
+            .Where(cr => cr.CommentId == commentId)
+            .ToList();
+    }
+
     public void DeleteCommentReaction(Guid commentReactionId)
     {
         var commentReaction = _db.CommentReactions.Find(commentReactionId);

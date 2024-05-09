@@ -8,6 +8,7 @@ using UseCases.BlogsUseCases;
 using UseCases.CommentReactionsUseCases;
 using UseCases.CommentsUseCases;
 using UseCases.DataStorePluginInterfaces;
+using UseCases.ReactionTypeUseCases;
 using WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,7 @@ builder.Services.AddControllersWithViews();
 // Repositories
 builder.Services.AddTransient<IBlogRepository, BlogSqlRepository>();
 builder.Services.AddTransient<IBlogImageRepository, BlogImageSqlRepository>();
+builder.Services.AddTransient<IReactionTypeRepository, ReactionTypeSqlRepository>();
 builder.Services.AddTransient<IBlogReactionRepository, BlogReactionSqlRepository>();
 builder.Services.AddTransient<ICommentRepository, CommentSqlRepository>();
 builder.Services.AddTransient<ICommentReactionRepository, CommentReactionSqlRepository>();
@@ -36,6 +38,9 @@ builder.Services.AddTransient<ICommentReactionRepository, CommentReactionSqlRepo
 /*
  * Use Cases
  */
+
+// Use Cases - Reaction Types
+builder.Services.AddTransient<IGetReactionTypeByActivityNameUseCase, GetReactionTypeByActivityNameUseCase>();
 
 // Use Cases - Blogs
 builder.Services.AddTransient<IAddBlogUseCase, AddBlogUseCase>();
@@ -51,6 +56,7 @@ builder.Services.AddTransient<IGetBlogImagesUseCase, GetBlogImagesUseCase>();
 
 // Use Cases - Blogs Reactions
 builder.Services.AddTransient<IAddBlogReactionUseCase, AddBlogReactionUseCase>();
+builder.Services.AddTransient<IGetBlogReactionsByBlogIdUseCase, GetBlogReactionsByBlogIdUseCase>();
 builder.Services.AddTransient<IDeleteBlogReactionUseCase, DeleteBlogReactionUseCase>();
 
 // Use Cases - Comments
@@ -60,6 +66,7 @@ builder.Services.AddTransient<IDeleteCommentUseCase, DeleteCommentUseCase>();
 
 // Use Cases - Comments Reactions
 builder.Services.AddTransient<IAddCommentReactionUseCase, AddCommentReactionUseCase>();
+builder.Services.AddTransient<IGetCommentReactionsByCommentIdUseCase, GetCommentReactionsByCommentIdUseCase>();
 builder.Services.AddTransient<IDeleteCommentReactionUseCase, DeleteCommentReactionUseCase>();
 
 

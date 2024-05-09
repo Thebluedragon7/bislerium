@@ -1,3 +1,4 @@
+@using Plugins.DataStore.SQL.constants
 @model CoreBusiness.Blog
 @inject Microsoft.AspNetCore.Identity.UserManager<CoreBusiness.User> UserManager
 
@@ -48,12 +49,18 @@
 
         <hr/>
         <div class="d-xl-flex align-items-xl-center">
-            <a class="btn btn-success" role="button">
-                Upvote (@(Model.BlogReactions?.Count(r => r.ReactionType.Activity == "Upvote") ?? 0))
-            </a>
-            <a class="btn btn-warning ms-3" role="button">
-                Downvote (@(Model.BlogReactions?.Count(r => r.ReactionType.Activity == "Downvote") ?? 0))
-            </a>
+            <form method="post" asp-controller="BlogReactions" asp-action="CreateUpvote">
+                <input type="hidden" name="blogId" value="@Model.Id"/>
+                <button class="btn btn-success" type="submit">
+                    Upvote (@(Model.BlogReactions?.Where(r => r.ReactionTypeId == Guid.Parse(ReactionTypeMapper.UPVOTE)).Count() ?? 0))
+                </button>
+            </form>
+            <form method="post" asp-controller="BlogReactions" asp-action="CreateDownvote">
+                <input type="hidden" name="blogId" value="@Model.Id"/>
+                <button class="btn btn-warning ms-3" type="submit">
+                    Downvote (@(Model.BlogReactions?.Where(r => r.ReactionTypeId == Guid.Parse(ReactionTypeMapper.DOWNVOTE)).Count() ?? 0))
+                </button>
+            </form>
             <a class="btn btn-primary ms-3" role="button" asp-controller="Comments" asp-action="Create" asp-route-blogId="@Model.Id">
                 Comment (@(Model.Comments?.Count ?? 0))
             </a>
