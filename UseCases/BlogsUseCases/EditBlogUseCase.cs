@@ -5,15 +5,15 @@ namespace UseCases.BlogsUseCases;
 
 public class EditBlogUseCase : IEditBlogUseCase
 {
-    private readonly IBlogRepository blogRepository;
+    private readonly IBlogRepository _blogRepository;
 
     public EditBlogUseCase(IBlogRepository blogRepository)
     {
-        this.blogRepository = blogRepository;
+        this._blogRepository = blogRepository;
     }
 
     public void Execute(Guid blogId, Blog blog)
     {
-        blogRepository.UpdateBlog(blogId, blog);
+        _blogRepository.UpdateBlog(blogId, blog);
     }
 }

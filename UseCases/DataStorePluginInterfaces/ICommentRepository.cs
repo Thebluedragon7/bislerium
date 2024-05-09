@@ -8,4 +8,5 @@ public interface ICommentRepository
     IEnumerable<Comment> GetCommentsByBlogId(Guid blogId);
     Comment? GetCommentById(Guid commentId);
     void DeleteComment(Guid commentId);
+    int GetCommentCountByMonth(DateTime? month);
 }

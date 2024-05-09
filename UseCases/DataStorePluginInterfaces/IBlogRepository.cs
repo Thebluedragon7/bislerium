@@ -9,4 +9,6 @@ public interface IBlogRepository
     Blog? GetBlogById(Guid blogId);
     void UpdateBlog(Guid blogId, Blog blog);
     void DeleteBlog(Guid blogId);
+    IEnumerable<Blog> GetTop10Blogs(DateTime? month);
+    int GetTotalBlogs(DateTime? month);
 }

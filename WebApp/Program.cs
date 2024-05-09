@@ -48,6 +48,8 @@ builder.Services.AddTransient<IViewBlogsUseCase, ViewBlogsUseCase>();
 builder.Services.AddTransient<IDeleteBlogUseCase, DeleteBlogUseCase>();
 builder.Services.AddTransient<IEditBlogUseCase, EditBlogUseCase>();
 builder.Services.AddTransient<IViewSelectedBlogUseCase, ViewSelectedBlogUseCase>();
+builder.Services.AddTransient<IGetTop10BlogsUseCase, GetTop10BlogsUseCase>();
+builder.Services.AddTransient<IGetTotalBlogsUseCase, GetTotalBlogsUseCase>();
 
 // Use Cases - Blogs Images
 builder.Services.AddTransient<IAddBlogImagesUseCases, AddBlogImagesUseCases>();
@@ -59,12 +61,15 @@ builder.Services.AddTransient<IGetBlogImageUseCase, GetBlogImageUseCase>();
 builder.Services.AddTransient<IAddBlogReactionUseCase, AddBlogReactionUseCase>();
 builder.Services.AddTransient<IGetBlogReactionsByBlogIdUseCase, GetBlogReactionsByBlogIdUseCase>();
 builder.Services.AddTransient<IDeleteBlogReactionUseCase, DeleteBlogReactionUseCase>();
+builder.Services.AddTransient<IGetUpvotesByMonthUseCase, GetUpvotesByMonthUseCase>();
+builder.Services.AddTransient<IGetDownvotesByMonthUseCase, GetDownvotesByMonthUseCase>();
 
 // Use Cases - Comments
 builder.Services.AddTransient<IAddCommentUseCase, AddCommentUseCase>();
 builder.Services.AddTransient<IGetCommentsByBlogIdUseCase, GetCommentsByBlogIdUseCase>();
 builder.Services.AddTransient<IGetCommentByIdUseCase, GetCommentByIdUseCase>();
 builder.Services.AddTransient<IDeleteCommentUseCase, DeleteCommentUseCase>();
+builder.Services.AddTransient<IGetCommentCountByMonthUseCase, GetCommentCountByMonthUseCase>();
 
 // Use Cases - Comments Reactions
 builder.Services.AddTransient<IAddCommentReactionUseCase, AddCommentReactionUseCase>();
@@ -96,6 +101,6 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Blogs}/{action=Index}/{id?}");
 
 app.Run();

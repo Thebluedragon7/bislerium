@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/WebApp.styles.css" asp-append-version="true"/>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        #wrapper {
+            display: flex;
+            height: calc(100% - 73px);
+            overflow-y: scroll;
+            
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .bislerium-sidebar {
+            width: 250px;
+            border-top-right-radius: 1.5rem;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <partial name="_NavbarPartial"/>
+</header>
+<div id="wrapper">
+    <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-primary p-0 navbar-dark bislerium-sidebar"
+         style="">
+        <div class="container-fluid d-flex flex-column p-0">
+            <a
+                class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0">
+                <div class="sidebar-brand-text mx-3">
+                    <span>Dashboard</span>
+                </div>
+            </a>
+            <hr class="sidebar-divider my-0"/>
+            <a
+                class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" asp-controller="Dashboard" asp-action="Index">
+                <div class="sidebar-brand-text mx-3">
+                    <span>Home</span>
+                </div>
+            </a>
+        </div>
+    </nav>
+    <div id="content-wrapper" class="d-flex flex-column w-100">
+        <div id="content" class="ps-3">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -41,4 +41,15 @@ public class CommentSqlRepository : ICommentRepository
         _db.Comments.Remove(comment);
         _db.SaveChanges();
     }
+
+    public int GetCommentCountByMonth(DateTime? month)
+    {
+        if (month != null)
+        {
+            return _db.Comments
+                .Count(c => c.CreatedAt.Month == month.Value.Month && c.CreatedAt.Year == month.Value.Year);
+        }
+
+        return _db.Comments.Count();
+    }
 }

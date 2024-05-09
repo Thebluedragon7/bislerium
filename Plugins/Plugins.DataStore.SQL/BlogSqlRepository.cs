@@ -81,4 +81,28 @@ public class BlogSqlRepository : IBlogRepository
         _db.Blogs.Remove(blog);
         _db.SaveChanges();
     }
+
+    public IEnumerable<Blog> GetTop10Blogs(DateTime? month)
+    {
+        IQueryable<Blog> query = _db.Blogs.Include(b => b.Author);
+
+        if (month != null)
+        {
+            query = query.Where(b => b.CreatedAt.Month == month.Value.Month && b.CreatedAt.Year == month.Value.Year);
+        }
+
+        return query.OrderByDescending(b => b.CreatedAt).Take(10).ToList();
+    }
+
+    public int GetTotalBlogs(DateTime? month)
+    {
+        IQueryable<Blog> query = _db.Blogs;
+
+        if (month != null)
+        {
+            query = query.Where(b => b.CreatedAt.Month == month.Value.Month && b.CreatedAt.Year == month.Value.Year);
+        }
+
+        return query.Count();
+    }
 }

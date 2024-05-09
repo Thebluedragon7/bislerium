@@ -1,5 +1,5 @@
 using CoreBusiness;
-using Microsoft.EntityFrameworkCore;
+using Plugins.DataStore.SQL.constants;
 using UseCases.DataStorePluginInterfaces;
 
 namespace Plugins.DataStore.SQL;
@@ -33,5 +33,31 @@ public class BlogReactionSqlRepository : IBlogReactionRepository
 
         _db.BlogReactions.Remove(blogReaction);
         _db.SaveChanges();
+    }
+
+    public int GetUpvotesByMonth(DateTime? month)
+    {
+        IQueryable<BlogReaction> query =
+            _db.BlogReactions.Where(br => br.ReactionTypeId == Guid.Parse(ReactionTypeMapper.UPVOTE));
+
+        if (month != null)
+        {
+            query = query.Where(br => br.CreatedAt.Month == month.Value.Month && br.CreatedAt.Year == month.Value.Year);
+        }
+
+        return query.Count();
+    }
+
+    public int GetDownvotesByMonth(DateTime? month)
+    {
+        IQueryable<BlogReaction> query =
+            _db.BlogReactions.Where(br => br.ReactionTypeId == Guid.Parse(ReactionTypeMapper.DOWNVOTE));
+
+        if (month != null)
+        {
+            query = query.Where(br => br.CreatedAt.Month == month.Value.Month && br.CreatedAt.Year == month.Value.Year);
+        }
+
+        return query.Count();
     }
 }
