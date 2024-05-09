@@ -68,7 +68,7 @@ public class BlogsController : Controller
     public IActionResult Details(Guid id)
     {
         var blog = _viewBlogsUseCase.Execute().FirstOrDefault(b => b.Id == id);
-
+        
         if (blog == null)
         {
             return NotFound();

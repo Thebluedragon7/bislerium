@@ -1,4 +1,5 @@
 using CoreBusiness;
+using Microsoft.EntityFrameworkCore;
 using UseCases.DataStorePluginInterfaces;
 
 namespace Plugins.DataStore.SQL;
@@ -23,6 +24,7 @@ public class CommentReactionSqlRepository : ICommentReactionRepository
     {
         return _db.CommentReactions
             .Where(cr => cr.CommentId == commentId)
+            .Include(cr => cr.ReactionType)
             .ToList();
     }
 

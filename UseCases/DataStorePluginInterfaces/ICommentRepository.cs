@@ -6,5 +6,6 @@ public interface ICommentRepository
 {
     void AddComment(Comment comment);
     IEnumerable<Comment> GetCommentsByBlogId(Guid blogId);
+    Comment? GetCommentById(Guid commentId);
     void DeleteComment(Guid commentId);
 }

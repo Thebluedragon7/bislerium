@@ -80,12 +80,19 @@
                                 <span>@comment.Text</span><em> - @comment.User.FullName</em>
                             </div>
                             <div class="d-xl-flex align-items-xl-center">
-                                <a class="btn btn-success" role="button">
-                                    Upvote (0)
-                                </a>
-                                <a class="btn btn-warning ms-3" role="button">
-                                    Downvote (0)
-                                </a>
+                                <form method="post" asp-controller="CommentReactions" asp-action="CreateUpvote">
+                                    <input type="hidden" name="commentId" value="@comment.Id"/>
+                                    <button class="btn btn-success" type="submit">
+                                        Upvote (@(comment.CommentReactions?.Where(cr => cr.ReactionTypeId == Guid.Parse(ReactionTypeMapper.UPVOTE)).Count() ?? 0))
+                                    </button>
+                                </form>
+                                
+                                <form method="post" asp-controller="CommentReactions" asp-action="CreateDownvote">
+                                    <input type="hidden" name="commentId" value="@comment.Id"/>
+                                    <button class="btn btn-warning ms-3" type="submit">
+                                        Downvote (@(comment.CommentReactions?.Where(cr => cr.ReactionTypeId == Guid.Parse(ReactionTypeMapper.DOWNVOTE)).Count() ?? 0))
+                                    </button>
+                                </form>
 
                                 @if (User?.Identity != null && User.Identity.IsAuthenticated && (UserManager.GetUserId(User) == comment.UserId || UserManager.GetUserId(User) == Model.AuthorId))
                                 {

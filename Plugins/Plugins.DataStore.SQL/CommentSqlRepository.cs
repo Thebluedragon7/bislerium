@@ -21,7 +21,16 @@ public class CommentSqlRepository : ICommentRepository
 
     public IEnumerable<Comment> GetCommentsByBlogId(Guid blogId)
     {
-        return _db.Comments.Where(c => c.BlogId == blogId).Include(c => c.User).ToList();
+        return _db.Comments.Where(c => c.BlogId == blogId)
+            .Include(c => c.User)
+            .Include(c => c.CommentReactions)
+            .ToList();
+    }
+
+    public Comment? GetCommentById(Guid commentId)
+    {
+        return _db.Comments
+            .FirstOrDefault(c => c.Id == commentId);
     }
 
     public void DeleteComment(Guid commentId)

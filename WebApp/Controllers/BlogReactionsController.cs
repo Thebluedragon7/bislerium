@@ -34,7 +34,6 @@ public class BlogReactionsController : Controller
     [Authorize(Roles = "Blogger")]
     public IActionResult CreateUpvote(BlogReaction blogReaction)
     {
-        Console.WriteLine("Creating Upvote");
         blogReaction.Id = Guid.NewGuid();
         blogReaction.UserId = _userManager.GetUserId(User)!;
         var upvoteReactionTypeId = _getReactionTypeByActivityNameUseCase.Execute("Upvote")!.Id;
@@ -93,13 +92,5 @@ public class BlogReactionsController : Controller
         }
 
         return RedirectToAction("Details", "Blogs", new { id = blogReaction.BlogId });
-    }
-
-    [HttpPost]
-    [Authorize(Roles = "Blogger")]
-    public IActionResult Delete(Guid id)
-    {
-        _deleteBlogReactionUseCase.Execute(id);
-        return RedirectToAction("Index", "Blogs");
     }
 }

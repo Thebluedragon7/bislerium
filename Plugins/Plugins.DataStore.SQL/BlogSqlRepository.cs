@@ -29,8 +29,6 @@ public class BlogSqlRepository : IBlogRepository
         return _db.Blogs
             .Include(b => b.Author)
             .Include(b => b.BlogImages)
-            .Include(b => b.Comments)
-            .Include(b => b.BlogReactions)
             .FirstOrDefault(b => b.Id == blogId);
     }
 
