@@ -53,6 +53,7 @@ builder.Services.AddTransient<IViewSelectedBlogUseCase, ViewSelectedBlogUseCase>
 builder.Services.AddTransient<IAddBlogImagesUseCases, AddBlogImagesUseCases>();
 builder.Services.AddTransient<IDeleteBlogImageUseCase, DeleteBlogImageUseCase>();
 builder.Services.AddTransient<IGetBlogImagesUseCase, GetBlogImagesUseCase>();
+builder.Services.AddTransient<IGetBlogImageUseCase, GetBlogImageUseCase>();
 
 // Use Cases - Blogs Reactions
 builder.Services.AddTransient<IAddBlogReactionUseCase, AddBlogReactionUseCase>();

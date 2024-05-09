@@ -2,5 +2,5 @@ namespace UseCases.BlogImagesUseCases;
 
 public interface IDeleteBlogImageUseCase
 {
-    void Execute(Guid blogId, Guid blogImageId);
+    void Execute(Guid blogImageId);
 }

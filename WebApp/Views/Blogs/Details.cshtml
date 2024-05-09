@@ -39,7 +39,7 @@
                     <div class="col">
                         <div class="d-flex flex-column flex-lg-row">
                             <div class="w-100">
-                                <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="@image.ImageUrl" alt="img"/>
+                                <img class="rounded img-fluid d-block w-100 fit-cover" style="" src="@image.ImageUrl" alt="img"/>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,9 @@
 
     @if (Model.Comments != null && Model.Comments.Count > 0)
     {
+        <h2>Comments</h2>
         <div class="mt-4">
+            <h2></h2>
             <ul class="list-group">
                 @foreach (var comment in Model.Comments)
                 {
@@ -86,7 +88,7 @@
                                         Upvote (@(comment.CommentReactions?.Where(cr => cr.ReactionTypeId == Guid.Parse(ReactionTypeMapper.UPVOTE)).Count() ?? 0))
                                     </button>
                                 </form>
-                                
+
                                 <form method="post" asp-controller="CommentReactions" asp-action="CreateDownvote">
                                     <input type="hidden" name="commentId" value="@comment.Id"/>
                                     <button class="btn btn-warning ms-3" type="submit">

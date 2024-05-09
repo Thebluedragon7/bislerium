@@ -11,8 +11,8 @@ public class DeleteBlogImageUseCase : IDeleteBlogImageUseCase
         this._blogImageRepository = blogImageRepository;
     }
 
-    public void Execute(Guid blogId, Guid blogImageId)
+    public void Execute(Guid blogImageId)
     {
-        _blogImageRepository.DeleteBlogImage(blogId, blogImageId);
+        _blogImageRepository.DeleteBlogImage(blogImageId);
     }
 }

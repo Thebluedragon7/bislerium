@@ -3,17 +3,17 @@ using UseCases.DataStorePluginInterfaces;
 
 namespace UseCases.BlogImagesUseCases;
 
-public class GetBlogImagesUseCase : IGetBlogImagesUseCase
+public class GetBlogImageUseCase : IGetBlogImageUseCase
 {
     private readonly IBlogImageRepository _blogImageRepository;
 
-    public GetBlogImagesUseCase(IBlogImageRepository blogImageRepository)
+    public GetBlogImageUseCase(IBlogImageRepository blogImageRepository)
     {
         this._blogImageRepository = blogImageRepository;
     }
-    
-    public IEnumerable<BlogImage> Execute(Guid blogId)
+
+    public BlogImage? Execute(Guid blogImageId)
     {
-        return _blogImageRepository.GetBlogImages(blogId);
+        return _blogImageRepository.GetBlogImage(blogImageId);
     }
 }

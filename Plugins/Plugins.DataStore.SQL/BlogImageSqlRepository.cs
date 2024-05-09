@@ -11,6 +11,7 @@ public class BlogImageSqlRepository : IBlogImageRepository
     {
         _db = db;
     }
+
     public void AddBlogImages(Guid blogId, List<BlogImage> blogImages)
     {
         _db.BlogImages.AddRange(blogImages);
@@ -22,7 +23,12 @@ public class BlogImageSqlRepository : IBlogImageRepository
         return _db.BlogImages.Where(x => x.BlogId == blogId).ToList();
     }
 
-    public void DeleteBlogImage(Guid blogId, Guid blogImageId)
+    public BlogImage? GetBlogImage(Guid blogImageId)
+    {
+        return _db.BlogImages.Find(blogImageId);
+    }
+
+    public void DeleteBlogImage(Guid blogImageId)
     {
         var blogImage = _db.BlogImages.Find(blogImageId);
         if (blogImage == null) return;
