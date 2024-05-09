@@ -4,5 +4,5 @@ namespace UseCases.BlogsUseCases;
 
 public interface IViewSelectedBlogUseCase
 {
-    Blog Execute(Guid blogId);
+    Blog? Execute(Guid blogId);
 }

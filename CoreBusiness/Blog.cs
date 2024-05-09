@@ -11,7 +11,7 @@ public class Blog
     [Required]
     public string Body { get; set; } = String.Empty;
     [Required]
-    public string? Subtitle { get; set; } = String.Empty;
+    public string Subtitle { get; set; } = String.Empty;
     [Required]
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     [Required]

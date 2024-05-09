@@ -1,0 +1,30 @@
+@using CoreBusiness
+
+@model Blog
+
+@{
+    ViewData["Title"] = "Create Blog";
+}
+
+<div class="container">
+    <h1 class="mb-5">Create Blog</h1>
+    <form method="post" asp-controller="Blogs" asp-action="Create">
+        <div class="d-flex flex-column mb-4">
+            <label class="form-label" asp-for="Title">Title*</label>
+            <input class="form-control" type="text" asp-for="Title" required="required"/>
+        </div>
+        <div class="d-flex flex-column mb-4">
+            <label class="form-label" asp-for="Subtitle">Subtitle*</label>
+            <input class="form-control" type="text" asp-for="Subtitle" required="required"/>
+        </div>
+        <div class="d-flex flex-column mb-4">
+            <label class="form-label" asp-for="Body">Body*</label>
+            <textarea class="form-control" asp-for="Body" required="required"></textarea>
+        </div>
+        <div class="d-flex flex-column mb-4">
+            <label class="form-label">Image</label>
+            <input class="form-control" type="file"/>
+        </div>
+        <button class="btn btn-primary" type="submit">Create</button>
+    </form>
+</div>

@@ -1,4 +1,5 @@
 using CoreBusiness;
+using Microsoft.EntityFrameworkCore;
 using UseCases.DataStorePluginInterfaces;
 
 namespace Plugins.DataStore.SQL;
@@ -20,12 +21,17 @@ public class BlogSqlRepository : IBlogRepository
 
     public IEnumerable<Blog> GetBlogs()
     {
-        return _db.Blogs.ToList();
+        return _db.Blogs.Include(b => b.Author).ToList();
     }
 
     public Blog? GetBlogById(Guid blogId)
     {
-        return _db.Blogs.Find(blogId);
+        return _db.Blogs
+            .Include(b => b.Author)
+            .Include(b => b.BlogImages)
+            .Include(b => b.Comments)
+            .Include(b => b.BlogReactions)
+            .FirstOrDefault(b => b.Id == blogId);
     }
 
     public void UpdateBlog(Guid blogId, Blog blog)
@@ -35,10 +41,7 @@ public class BlogSqlRepository : IBlogRepository
 
         existingBlog.Title = blog.Title;
         existingBlog.Body = blog.Body;
-
-        if (blog.Subtitle != null)
-            existingBlog.Subtitle = blog.Subtitle;
-
+        existingBlog.Subtitle = blog.Subtitle;
         existingBlog.UpdatedAt = DateTime.Now;
 
         _db.SaveChanges();

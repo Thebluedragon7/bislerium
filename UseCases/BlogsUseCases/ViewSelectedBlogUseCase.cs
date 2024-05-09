@@ -5,15 +5,15 @@ namespace UseCases.BlogsUseCases;
 
 public class ViewSelectedBlogUseCase : IViewSelectedBlogUseCase
 {
-    private readonly IBlogRepository blogRepository;
+    private readonly IBlogRepository _blogRepository;
 
     public ViewSelectedBlogUseCase(IBlogRepository blogRepository)
     {
-        this.blogRepository = blogRepository;
+        this._blogRepository = blogRepository;
     }
 
-    public Blog Execute(Guid blogId)
+    public Blog? Execute(Guid blogId)
     {
-        return blogRepository.GetBlogById(blogId);
+        return _blogRepository.GetBlogById(blogId);
     }
 }

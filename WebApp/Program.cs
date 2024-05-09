@@ -2,6 +2,7 @@ using CoreBusiness;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Plugins.DataStore.SQL;
+using UseCases.BlogImagesUseCases;
 using UseCases.BlogsUseCases;
 using UseCases.DataStorePluginInterfaces;
 using WebApp.Services;
@@ -24,9 +25,19 @@ builder.Services.AddControllersWithViews();
 
 // Repositories
 builder.Services.AddTransient<IBlogRepository, BlogSqlRepository>();
+builder.Services.AddTransient<IBlogImageRepository, BlogImageSqlRepository>();
 
 // Use Cases
+builder.Services.AddTransient<IAddBlogUseCase, AddBlogUseCase>();
 builder.Services.AddTransient<IViewBlogsUseCase, ViewBlogsUseCase>();
+builder.Services.AddTransient<IDeleteBlogUseCase, DeleteBlogUseCase>();
+builder.Services.AddTransient<IEditBlogUseCase, EditBlogUseCase>();
+builder.Services.AddTransient<IViewSelectedBlogUseCase, ViewSelectedBlogUseCase>();
+
+builder.Services.AddTransient<IAddBlogImagesUseCases, AddBlogImagesUseCases>();
+builder.Services.AddTransient<IDeleteBlogImageUseCase, DeleteBlogImageUseCase>();
+builder.Services.AddTransient<IGetBlogImagesUseCase, GetBlogImagesUseCase>();
+
 
 // Data Initializer
 builder.Services.AddHostedService<DataInitializer>();

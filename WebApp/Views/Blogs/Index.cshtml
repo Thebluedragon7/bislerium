@@ -1,0 +1,24 @@
+@using CoreBusiness
+@model BlogViewModel
+
+@{
+    ViewData["Title"] = "Blogs";
+}
+
+<div class="container">
+    <div class="d-xl-flex justify-content-xl-end">
+        <a class="btn btn-primary" role="button" asp-controller="Blogs" asp-action="Create">Add Blog</a>
+    </div>
+
+    @foreach (Blog blog in Model.Blogs)
+    {
+        <a class="card mt-3 text-decoration-none" asp-controller="Blogs" asp-action="Details" asp-route-id="@blog.Id">
+            <div class="card-body">
+                <h5 class="card-title text-black">@blog.Title</h5>
+                <h5 class="card-subtitle text-black">@blog.Subtitle</h5>
+                <p class="card-text text-black">by @blog.Author.FullName</p>
+            </div>
+        </a>
+    }
+
+</div>
