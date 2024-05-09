@@ -1,4 +1,3 @@
-using CoreBusiness;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UseCases.BlogReactionsUseCases;
@@ -16,13 +15,15 @@ public class DashboardController : Controller
     private readonly IGetCommentCountByMonthUseCase _getCommentCountByMonthUseCase;
     private readonly IGetUpvotesByMonthUseCase _getUpvotesByMonthUseCase;
     private readonly IGetDownvotesByMonthUseCase _getDownvotesByMonthUseCase;
+    private readonly IGetTop10BloggersUseCase _getTop10BloggersUseCase;
 
     public DashboardController(
         IGetTop10BlogsUseCase getTop10BlogsUseCase,
         IGetTotalBlogsUseCase getTotalBlogsUseCase,
         IGetCommentCountByMonthUseCase getCommentCountByMonthUseCase,
         IGetUpvotesByMonthUseCase getUpvotesByMonthUseCase,
-        IGetDownvotesByMonthUseCase getDownvotesByMonthUseCase
+        IGetDownvotesByMonthUseCase getDownvotesByMonthUseCase,
+        IGetTop10BloggersUseCase getTop10BloggersUseCase
     )
     {
         _getTop10BlogsUseCase = getTop10BlogsUseCase;
@@ -30,6 +31,7 @@ public class DashboardController : Controller
         _getCommentCountByMonthUseCase = getCommentCountByMonthUseCase;
         _getUpvotesByMonthUseCase = getUpvotesByMonthUseCase;
         _getDownvotesByMonthUseCase = getDownvotesByMonthUseCase;
+        _getTop10BloggersUseCase = getTop10BloggersUseCase;
     }
 
     public IActionResult Index(DateTime? month)
@@ -39,6 +41,7 @@ public class DashboardController : Controller
         var totalComments = _getCommentCountByMonthUseCase.Execute(month);
         var totalUpvotes = _getUpvotesByMonthUseCase.Execute(month);
         var totalDownvotes = _getDownvotesByMonthUseCase.Execute(month);
+        var topBloggers = _getTop10BloggersUseCase.Execute(month);
 
         return View(new DashboardViewModel()
         {
@@ -46,7 +49,7 @@ public class DashboardController : Controller
             TotalComments = totalComments,
             TotalUpvotes = totalUpvotes,
             TotalDownvotes = totalDownvotes,
-            TopBloggers = new List<User>(),
+            TopBloggers = topBloggers.ToList(),
             TopBlogs = topBlogs.ToList()
         });
     }

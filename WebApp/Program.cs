@@ -50,6 +50,7 @@ builder.Services.AddTransient<IEditBlogUseCase, EditBlogUseCase>();
 builder.Services.AddTransient<IViewSelectedBlogUseCase, ViewSelectedBlogUseCase>();
 builder.Services.AddTransient<IGetTop10BlogsUseCase, GetTop10BlogsUseCase>();
 builder.Services.AddTransient<IGetTotalBlogsUseCase, GetTotalBlogsUseCase>();
+builder.Services.AddTransient<IGetTop10BloggersUseCase, GetTop10BloggersUseCase>();
 
 // Use Cases - Blogs Images
 builder.Services.AddTransient<IAddBlogImagesUseCases, AddBlogImagesUseCases>();

@@ -11,4 +11,5 @@ public interface IBlogRepository
     void DeleteBlog(Guid blogId);
     IEnumerable<Blog> GetTop10Blogs(DateTime? month);
     int GetTotalBlogs(DateTime? month);
+    public IEnumerable<BloggerInfo> GetTop10Bloggers(DateTime? month);
 }

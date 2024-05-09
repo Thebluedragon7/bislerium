@@ -22,13 +22,10 @@ public class BlogSqlRepository : IBlogRepository
 
     public IEnumerable<Blog> GetBlogs(int pageNumber, int pageSize, String sortBy)
     {
-        // Calculate the number of blogs to skip
         int skip = (pageNumber - 1) * pageSize;
 
-        // Query the database with sorting and pagination
         IQueryable<Blog> query = _db.Blogs.Include(b => b.Author);
 
-        // Apply sorting
         switch (sortBy.ToLower())
         {
             case "recency":
@@ -45,11 +42,9 @@ public class BlogSqlRepository : IBlogRepository
                 break;
         }
 
-        // Apply pagination
         query = query.Skip(skip).Take(pageSize);
 
         return query.ToList();
-        // return _db.Blogs.Include(b => b.Author).ToList();
     }
 
     public Blog? GetBlogById(Guid blogId)
@@ -86,6 +81,11 @@ public class BlogSqlRepository : IBlogRepository
     {
         IQueryable<Blog> query = _db.Blogs.Include(b => b.Author);
 
+        query = query.OrderByDescending(b =>
+            b.BlogReactions.Count(br => br.ReactionTypeId == Guid.Parse(ReactionTypeMapper.UPVOTE)) * 2 +
+            b.BlogReactions.Count(br => br.ReactionTypeId == Guid.Parse(ReactionTypeMapper.DOWNVOTE)) * -1 +
+            b.Comments.Count);
+
         if (month != null)
         {
             query = query.Where(b => b.CreatedAt.Month == month.Value.Month && b.CreatedAt.Year == month.Value.Year);
@@ -104,5 +104,22 @@ public class BlogSqlRepository : IBlogRepository
         }
 
         return query.Count();
+    }
+
+    public IEnumerable<BloggerInfo> GetTop10Bloggers(DateTime? month)
+    {
+        IQueryable<Blog> query = _db.Blogs.Include(b => b.Author);
+
+        if (month != null)
+        {
+            query = query.Where(b => b.CreatedAt.Month == month.Value.Month && b.CreatedAt.Year == month.Value.Year);
+        }
+
+        return query
+            .GroupBy(b => b.Author)
+            .OrderByDescending(g => g.Count())
+            .Take(10)
+            .Select(g => new BloggerInfo { FullName = g.Key.FullName, Email = g.Key.Email })
+            .ToList();
     }
 }

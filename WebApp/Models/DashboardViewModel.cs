@@ -9,6 +9,6 @@ public class DashboardViewModel
     public int TotalUpvotes { get; set; }
     public int TotalDownvotes { get; set; }
 
-    public List<User> TopBloggers { get; set; }
+    public List<BloggerInfo> TopBloggers { get; set; }
     public List<Blog> TopBlogs { get; set; }
 }
