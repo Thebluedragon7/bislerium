@@ -1,0 +1,17 @@
+@model List<CoreBusiness.CommentAction>
+
+@{
+    ViewBag.Title = "Comment Action History";
+    Layout = "_DashboardLayout";
+}
+
+<ul class="list-group">
+    @foreach (var commentAction in Model)
+    {
+        <li class="list-group-item">
+            <div class="text-decoration-none text-black">
+                <span>@commentAction.Message - </span> <em>@commentAction.ActionDate</em>
+            </div>
+        </li>
+    }
+</ul>

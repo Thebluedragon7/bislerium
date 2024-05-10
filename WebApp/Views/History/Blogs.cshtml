@@ -1,0 +1,19 @@
+@model List<CoreBusiness.Blog>
+
+@{
+    ViewBag.Title = "Blog History";
+    Layout = "_DashboardLayout";
+}
+
+
+@* <h1>Top 10 Blogs</h1> *@
+<ul class="list-group">
+    @foreach (var blog in Model)
+    {
+        <li class="list-group-item">
+            <a class="text-decoration-none text-black" asp-controller="History" asp-action="BlogActions" asp-route-id="@blog.Id">
+                <span>@blog.Title - </span> <em>@blog.Author.FullName</em>
+            </a>
+        </li>
+    }
+</ul>

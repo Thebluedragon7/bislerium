@@ -1,0 +1,17 @@
+@model List<CoreBusiness.Comment>
+
+@{
+    ViewBag.Title = "Comment History";
+    Layout = "_DashboardLayout";
+}
+
+<ul class="list-group">
+    @foreach (var comment in Model)
+    {
+        <li class="list-group-item">
+            <a class="text-decoration-none text-black" asp-controller="History" asp-action="CommentActions" asp-route-id="@comment.Id">
+                <span>@comment.Text - </span> <em>@comment.User.FullName</em>
+            </a>
+        </li>
+    }
+</ul>

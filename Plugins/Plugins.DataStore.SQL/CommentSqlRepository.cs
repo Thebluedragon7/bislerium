@@ -13,6 +13,14 @@ public class CommentSqlRepository : ICommentRepository
         _db = db;
     }
 
+    public IEnumerable<Comment> GetAllComments()
+    {
+        return _db.Comments
+            .Include(c => c.User)
+            .Include(c => c.CommentReactions)
+            .ToList();
+    }
+
     public void AddComment(Comment comment)
     {
         _db.Comments.Add(comment);

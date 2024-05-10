@@ -4,6 +4,7 @@ namespace UseCases.DataStorePluginInterfaces;
 
 public interface ICommentRepository
 {
+    IEnumerable<Comment> GetAllComments();
     void AddComment(Comment comment);
     IEnumerable<Comment> GetCommentsByBlogId(Guid blogId);
     void UpdateComment(Guid commentId, Comment comment);

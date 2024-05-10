@@ -14,6 +14,11 @@ public class BlogSqlRepository : IBlogRepository
         _db = db;
     }
 
+    public IEnumerable<Blog> GetAllBlogs()
+    {
+        return _db.Blogs.Include(b => b.Author).ToList();
+    }
+
     public void AddBlog(Blog blog)
     {
         _db.Blogs.Add(blog);

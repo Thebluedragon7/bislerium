@@ -4,6 +4,7 @@ namespace UseCases.DataStorePluginInterfaces;
 
 public interface IBlogRepository
 {
+    IEnumerable<Blog> GetAllBlogs();
     void AddBlog(Blog blog);
     IEnumerable<Blog> GetBlogs(int pageNumber, int pageSize, String sortBy);
     Blog? GetBlogById(Guid blogId);

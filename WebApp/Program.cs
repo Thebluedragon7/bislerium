@@ -49,6 +49,7 @@ builder.Services.AddTransient<ICommentActionRepository, CommentActionSqlReposito
 builder.Services.AddTransient<IGetReactionTypeByActivityNameUseCase, GetReactionTypeByActivityNameUseCase>();
 
 // Use Cases - Blogs
+builder.Services.AddTransient<IGetAllBlogsUseCase, GetAllBlogsUseCase>();
 builder.Services.AddTransient<IAddBlogUseCase, AddBlogUseCase>();
 builder.Services.AddTransient<IViewBlogsUseCase, ViewBlogsUseCase>();
 builder.Services.AddTransient<IDeleteBlogUseCase, DeleteBlogUseCase>();
@@ -72,6 +73,7 @@ builder.Services.AddTransient<IGetUpvotesByMonthUseCase, GetUpvotesByMonthUseCas
 builder.Services.AddTransient<IGetDownvotesByMonthUseCase, GetDownvotesByMonthUseCase>();
 
 // Use Cases - Comments
+builder.Services.AddTransient<IGetAllCommentsUseCase, GetAllCommentsUseCase>();
 builder.Services.AddTransient<IAddCommentUseCase, AddCommentUseCase>();
 builder.Services.AddTransient<IGetCommentsByBlogIdUseCase, GetCommentsByBlogIdUseCase>();
 builder.Services.AddTransient<IGetCommentByIdUseCase, GetCommentByIdUseCase>();

@@ -1,0 +1,17 @@
+@model List<CoreBusiness.BlogAction>
+
+@{
+    ViewBag.Title = "Blog Actions History";
+    Layout = "_DashboardLayout";
+}
+
+<ul class="list-group">
+    @foreach (var blogAction in Model)
+    {
+        <li class="list-group-item">
+            <div class="text-decoration-none text-black">
+                <span>@blogAction.Message - </span> <em>@blogAction.ActionDate</em>
+            </div>
+        </li>
+    }
+</ul>
