@@ -83,8 +83,7 @@ public class BlogsController : Controller
 
         foreach (var image in images)
         {
-            Console.WriteLine("Attemnpting to save images");
-            if (image.Length > 3 * 1024 * 1024) // Skip if the image size is greater than 3 MB
+            if (image.Length > 3 * 1024 * 1024)
             {
                 continue;
             }

@@ -50,3 +50,21 @@
         </div>
     }
 </div>
+
+@section Scripts {
+<script>
+    $(document).ready(function() {
+        $('input[type=file]').on('change', function() {
+            var files = this.files;
+            var sizeLimit = 3 * 1024 * 1024;
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].size > sizeLimit) {
+                    alert('File ' + files[i].name + ' is larger than the 3MB limit. Please select a smaller file.');
+                    this.value = '';
+                    break;
+                }
+            }
+        });
+    });
+</script>
+}
