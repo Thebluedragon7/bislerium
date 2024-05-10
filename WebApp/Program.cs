@@ -8,6 +8,7 @@ using UseCases.BlogsUseCases;
 using UseCases.CommentReactionsUseCases;
 using UseCases.CommentsUseCases;
 using UseCases.DataStorePluginInterfaces;
+using UseCases.NotificationsUseCases;
 using UseCases.ReactionTypeUseCases;
 using WebApp.Services;
 
@@ -34,6 +35,7 @@ builder.Services.AddTransient<IReactionTypeRepository, ReactionTypeSqlRepository
 builder.Services.AddTransient<IBlogReactionRepository, BlogReactionSqlRepository>();
 builder.Services.AddTransient<ICommentRepository, CommentSqlRepository>();
 builder.Services.AddTransient<ICommentReactionRepository, CommentReactionSqlRepository>();
+builder.Services.AddTransient<INotificationRepository, NotificationSqlRepository>();
 
 /*
  * Use Cases
@@ -76,6 +78,11 @@ builder.Services.AddTransient<IGetCommentCountByMonthUseCase, GetCommentCountByM
 builder.Services.AddTransient<IAddCommentReactionUseCase, AddCommentReactionUseCase>();
 builder.Services.AddTransient<IGetCommentReactionsByCommentIdUseCase, GetCommentReactionsByCommentIdUseCase>();
 builder.Services.AddTransient<IDeleteCommentReactionUseCase, DeleteCommentReactionUseCase>();
+
+// Use Cases - Notifications
+builder.Services.AddTransient<IAddNotificationUseCase, AddNotificationUseCase>();
+builder.Services.AddTransient<IGetNotificationsByUserIdUseCase, GetNotificationsByUserIdUseCase>();
+builder.Services.AddTransient<IMarkNotificationAsSeenUseCase, MarkNotificationAsSeenUseCase>();
 
 
 // Data Initializer
