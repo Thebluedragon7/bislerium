@@ -75,6 +75,7 @@ builder.Services.AddTransient<IGetDownvotesByMonthUseCase, GetDownvotesByMonthUs
 builder.Services.AddTransient<IAddCommentUseCase, AddCommentUseCase>();
 builder.Services.AddTransient<IGetCommentsByBlogIdUseCase, GetCommentsByBlogIdUseCase>();
 builder.Services.AddTransient<IGetCommentByIdUseCase, GetCommentByIdUseCase>();
+builder.Services.AddTransient<IUpdateCommentUseCase, UpdateCommentUseCase>();
 builder.Services.AddTransient<IDeleteCommentUseCase, DeleteCommentUseCase>();
 builder.Services.AddTransient<IGetCommentCountByMonthUseCase, GetCommentCountByMonthUseCase>();
 

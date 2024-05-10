@@ -96,6 +96,13 @@
                                     </button>
                                 </form>
 
+                                @if (User?.Identity != null && User.Identity.IsAuthenticated && UserManager.GetUserId(User) == comment.UserId)
+                                {
+                                    <a class="btn btn-primary ms-3" role="button" asp-controller="Comments" asp-action="Edit" asp-route-id="@comment.Id">
+                                        Edit
+                                    </a>
+                                }
+
                                 @if (User?.Identity != null && User.Identity.IsAuthenticated && (UserManager.GetUserId(User) == comment.UserId || UserManager.GetUserId(User) == Model.AuthorId))
                                 {
                                     <a class="btn btn-danger ms-3" role="button" asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id">

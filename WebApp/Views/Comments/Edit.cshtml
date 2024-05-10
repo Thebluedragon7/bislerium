@@ -1,0 +1,16 @@
+@model CoreBusiness.Comment
+
+@{
+    ViewBag.Title = "Edit Comment";
+}
+
+<div class="container">
+    <h1>Edit Comment</h1>
+    <form method="post" asp-controller="Comments" asp-action="Edit">
+        <textarea class="form-control form-control-lg" asp-for="Text" required="required"></textarea>
+        <div class="d-flex flex-row justify-content-xl-end mt-2">
+            <button class="btn btn-secondary" role="button" onclick="window.history.back();">Cancel</button>
+            <button class="btn btn-primary ms-3" type="submit">Update</button>
+        </div>
+    </form>
+</div>

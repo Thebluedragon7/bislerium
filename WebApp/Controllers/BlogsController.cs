@@ -2,6 +2,7 @@ using CoreBusiness;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using UseCases.BlogActionsUseCases;
 using UseCases.BlogImagesUseCases;
 using UseCases.BlogReactionsUseCases;
 using UseCases.BlogsUseCases;
@@ -22,6 +23,7 @@ public class BlogsController : Controller
     private readonly IGetBlogReactionsByBlogIdUseCase _getBlogReactionsByBlogIdUseCase;
     private readonly IAddBlogImagesUseCases _addBlogImagesUseCases;
     private readonly IGetBlogImagesUseCase _getBlogImagesUseCase;
+    private readonly IAddBlogActionUseCase _addBlogActionUseCase;
 
     public BlogsController(
         UserManager<User> userManager,
@@ -33,7 +35,8 @@ public class BlogsController : Controller
         IGetCommentsByBlogIdUseCase getCommentsByBlogIdUseCase,
         IGetBlogReactionsByBlogIdUseCase getBlogReactionsByBlogIdUseCase,
         IAddBlogImagesUseCases addBlogImagesUseCases,
-        IGetBlogImagesUseCase getBlogImagesUseCase
+        IGetBlogImagesUseCase getBlogImagesUseCase,
+        IAddBlogActionUseCase addBlogActionUseCase
     )
     {
         _userManager = userManager;
@@ -46,6 +49,7 @@ public class BlogsController : Controller
         _getBlogReactionsByBlogIdUseCase = getBlogReactionsByBlogIdUseCase;
         _addBlogImagesUseCases = addBlogImagesUseCases;
         _getBlogImagesUseCase = getBlogImagesUseCase;
+        _addBlogActionUseCase = addBlogActionUseCase;
     }
 
     public IActionResult Index(int pageNumber = 1, int pageSize = 2, string sortBy = "recency")
@@ -73,9 +77,6 @@ public class BlogsController : Controller
     [Authorize(Roles = "Blogger")]
     public async Task<IActionResult> Create(Blog blog, IEnumerable<IFormFile> images)
     {
-        Console.WriteLine("Creating Blog");
-        Console.WriteLine(images.ToList().Count);
-
         blog.Id = Guid.NewGuid();
         blog.AuthorId = _userManager.GetUserId(User)!;
 
@@ -114,6 +115,14 @@ public class BlogsController : Controller
         }
 
         _addBlogUseCase.Execute(blog);
+        
+        _addBlogActionUseCase.Execute(new BlogAction
+        {
+            Id = Guid.NewGuid(),
+            BlogId = blog.Id,
+            Message = $"Created by {_userManager.GetUserName(User)}"
+        });
+        
         _addBlogImagesUseCases.Execute(blog.Id, blogImages);
         return RedirectToAction("Index");
     }
@@ -158,7 +167,7 @@ public class BlogsController : Controller
         foreach (var image in images)
         {
             Console.WriteLine("Attemnpting to save images");
-            if (image.Length > 3 * 1024 * 1024) // Skip if the image size is greater than 3 MB
+            if (image.Length > 3 * 1024 * 1024)
             {
                 continue;
             }
@@ -188,9 +197,16 @@ public class BlogsController : Controller
             blogImages.Add(blogImage);
         }
 
+        _addBlogActionUseCase.Execute(new BlogAction
+        {
+            Id = Guid.NewGuid(),
+            BlogId = blog.Id,
+            Message = $"Edited by {_userManager.GetUserName(User)}"
+        });
+
         _addBlogImagesUseCases.Execute(blog.Id, blogImages);
 
-        return RedirectToAction("Edit", "Blogs", new { id });
+        return RedirectToAction("Details", "Blogs", new { id });
     }
 
     [Authorize(Roles = "Blogger")]

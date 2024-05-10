@@ -27,6 +27,17 @@ public class CommentSqlRepository : ICommentRepository
             .ToList();
     }
 
+    public void UpdateComment(Guid commentId, Comment comment)
+    {
+        var existingComment = _db.Comments.Find(commentId);
+        if (existingComment == null) return;
+
+        existingComment.Text = comment.Text;
+        existingComment.UpdatedAt = comment.UpdatedAt;
+
+        _db.SaveChanges();
+    }
+
     public Comment? GetCommentById(Guid commentId)
     {
         return _db.Comments
