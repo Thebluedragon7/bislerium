@@ -2,9 +2,11 @@ using CoreBusiness;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Plugins.DataStore.SQL;
+using UseCases.BlogActionsUseCases;
 using UseCases.BlogImagesUseCases;
 using UseCases.BlogReactionsUseCases;
 using UseCases.BlogsUseCases;
+using UseCases.CommentActionsUseCases;
 using UseCases.CommentReactionsUseCases;
 using UseCases.CommentsUseCases;
 using UseCases.DataStorePluginInterfaces;
@@ -36,6 +38,8 @@ builder.Services.AddTransient<IBlogReactionRepository, BlogReactionSqlRepository
 builder.Services.AddTransient<ICommentRepository, CommentSqlRepository>();
 builder.Services.AddTransient<ICommentReactionRepository, CommentReactionSqlRepository>();
 builder.Services.AddTransient<INotificationRepository, NotificationSqlRepository>();
+builder.Services.AddTransient<IBlogActionRepository, BlogActionSqlRepository>();
+builder.Services.AddTransient<ICommentActionRepository, CommentActionSqlRepository>();
 
 /*
  * Use Cases
@@ -83,6 +87,14 @@ builder.Services.AddTransient<IDeleteCommentReactionUseCase, DeleteCommentReacti
 builder.Services.AddTransient<IAddNotificationUseCase, AddNotificationUseCase>();
 builder.Services.AddTransient<IGetNotificationsByUserIdUseCase, GetNotificationsByUserIdUseCase>();
 builder.Services.AddTransient<IMarkNotificationAsSeenUseCase, MarkNotificationAsSeenUseCase>();
+
+// Use Cases - Blog Actions
+builder.Services.AddTransient<IAddBlogActionUseCase, AddBlogActionUseCase>();
+builder.Services.AddTransient<IGetBlogActionsByBlogIdUseCase, GetBlogActionsByBlogIdUseCase>();
+
+// Use Cases - Comment Actions
+builder.Services.AddTransient<IAddCommentActionUseCase, AddCommentActionUseCase>();
+builder.Services.AddTransient<IGetCommentActionsByCommentIdUseCase, GetCommentActionsByCommentIdUseCase>();
 
 
 // Data Initializer
