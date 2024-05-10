@@ -51,15 +51,24 @@
                     <span>Dashboard</span>
                 </div>
             </a>
-            <hr class="sidebar-divider my-0"/>
-            <a
-                class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" asp-controller="Dashboard" asp-action="Index">
-                <div class="sidebar-brand-text mx-3">
-                    <span>Home</span>
-                </div>
+            <hr class="sidebar-divider my-0 bg-black"/>
+            <hr style="color: white" class="w-100"/>
+
+            <a class="nav-link text-white" asp-controller="Dashboard" asp-action="Index">
+                Home
             </a>
 
-            <a class="nav-link text-dark" id="register-admin" asp-area="Identity" asp-page="/Account/RegisterAdmin">Register Admin</a>
+            <a class="nav-link text-white" asp-controller="History" asp-action="Index">
+                Blog History
+            </a>
+
+            <a class="nav-link text-white" asp-controller="History" asp-action="Index">
+                Comment History
+            </a>
+
+            <a class="nav-link text-white" id="register-admin" asp-area="Identity" asp-page="/Account/RegisterAdmin">
+                Register Admin
+            </a>
 
         </div>
     </nav>
