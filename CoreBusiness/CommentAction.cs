@@ -9,9 +9,6 @@ public class CommentAction
     [Required]
     public Guid CommentId { get; set; }
     [Required]
-    [Display(Name = "User")]
-    public String ActionBy { get; set; } = string.Empty;
-    [Required]
     public string Message { get; set; } = string.Empty;
     [Required]
     public DateTime ActionDate { get; set; } = DateTime.Now;

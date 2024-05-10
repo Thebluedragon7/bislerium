@@ -21,21 +21,10 @@ public class BisleriumContext : IdentityDbContext<User>
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<ReactionType> ReactionTypes { get; set; }
     public DbSet<User> Users { get; set; }
-    // public DbSet<UserType> UserTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        /*
-         * Composite Keys
-         */
-        // modelBuilder.Entity<BlogReaction>()
-        //     .HasKey(r => new { r.BlogId, r.UserId });
-
-        // modelBuilder.Entity<CommentReaction>()
-        //     .HasKey(r => new { r.CommentId, r.UserId });
-
 
         /*
          * Relationships
@@ -58,13 +47,6 @@ public class BisleriumContext : IdentityDbContext<User>
             .HasMany(u => u.Comments)
             .WithOne(c => c.User)
             .HasForeignKey(c => c.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        // User -|------<- CommentAction
-        modelBuilder.Entity<User>()
-            .HasMany(u => u.CommentActions)
-            .WithOne(a => a.User)
-            .HasForeignKey(a => a.ActionBy)
             .OnDelete(DeleteBehavior.Restrict);
 
         // User -|------<- BlogReaction
